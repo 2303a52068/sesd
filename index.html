@@ -1,199 +1,154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FitTrack — Smart Fitness Tracker (Brown Modals)</title>
-
-  <!-- Bootstrap CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitTrack — Personal Fitness & Progress Tracker</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Chart.js (must be before script.js) -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background:var(--primary);">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">FitTrack</a>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">FitTrack</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="collapse navbar-collapse" id="navCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#plans">Plans</a></li>
+        <li class="nav-item"><a class="nav-link" href="#trackers">Trackers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#progress">Progress</a></li>
+      </ul>
 
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item me-2">
-            <button class="btn btn-sm btn-outline-light" type="button" onclick="openAddModal()">Add Workout</button>
-          </li>
-          <li class="nav-item me-2">
-            <button class="btn btn-sm btn-outline-light" type="button" onclick="openLogModal()">Workout Log</button>
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-sm btn-outline-light" type="button" onclick="openStatsModal()">Stats</button>
-          </li>
-        </ul>
+      <div class="d-flex align-items-center">
+        <button class="btn btn-outline-success me-2" id="btnOpenLogin">Login / Signup</button>
+        <button class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#cartCanvas"><i class="fa fa-dumbbell me-2"></i>My Plans <span class="badge bg-light text-dark ms-2" id="cartCount">0</span></button>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <header class="hero text-center py-5">
-    <div class="container">
-      <h1 class="display-5 fw-bold">FitTrack</h1>
-      <p class="lead">Track workouts, calories, and BMI — quick and simple.</p>
-      <div class="small text-muted">Use the navbar buttons to open each modal.</div>
-    </div>
-  </header>
-
-  <!-- MAIN minimal content -->
-  <main class="container my-4">
-    <div class="text-center">
-      <p class="mb-0">This version uses brown-themed modals for Add, Log and Stats sections.</p>
-    </div>
-  </main>
-
-  <!-- ADD WORKOUT MODAL -->
-  <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content brown-modal p-3">
-        <div class="modal-header border-0">
-          <h5 class="modal-title text-light">Add Workout Session</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- MAIN CONTENT -->
+<div class="container my-4">
+  <section id="home" class="hero mb-4">
+    <div class="row align-items-center">
+      <div class="col-md-7">
+        <h1 class="display-6">FitTrack — Track workouts, nutrition & progress</h1>
+        <p class="lead">Personalized plans, weight & workout trackers, and progress charts — all stored locally for this demo.</p>
+        <div class="d-flex gap-2">
+          <a class="btn btn-success btn-lg" href="#plans">Explore Plans</a>
+          <a class="btn btn-outline-dark btn-lg" href="#trackers">Start Tracking</a>
         </div>
+      </div>
+      <div class="col-md-5 text-center d-none d-md-block">
+        <img src="https://images.unsplash.com/photo-1554284126-aa88f22d8c3b" class="img-fluid rounded-3 shadow-sm">
+      </div>
+    </div>
+  </section>
 
-        <div class="modal-body">
-          <form id="modalWorkoutForm" class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label text-light">Date</label>
-              <input id="mInputDate" type="date" class="form-control" required>
-            </div>
+  <section id="plans" class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3>Subscription Plans</h3>
+      <small class="small-muted">Choose a plan and add to cart</small>
+    </div>
+    <div class="row g-3" id="plansList"></div>
+  </section>
 
-            <div class="col-md-6">
-              <label class="form-label text-light">Activity</label>
-              <select id="mInputType" class="form-select" required>
-                <option value="Running">Running</option>
-                <option value="Cycling">Cycling</option>
-                <option value="Walking">Walking</option>
-                <option value="Gym">Gym</option>
-                <option value="Yoga">Yoga</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div class="col-md-6">
-              <label class="form-label text-light">Duration (mins)</label>
-              <input id="mInputDuration" type="number" min="1" class="form-control" required>
-            </div>
-
-            <div class="col-md-6">
-              <label class="form-label text-light">Calories</label>
-              <input id="mInputCalories" type="number" min="1" class="form-control" required>
-            </div>
-
-            <div class="col-12 d-flex gap-2">
-              <button id="modalAddBtnPrimary" type="submit" class="btn btn-primary">Add Workout</button>
-              <button type="button" class="btn btn-outline-light ms-auto" data-bs-dismiss="modal">Close</button>
-            </div>
+  <section id="trackers" class="mb-5">
+    <h3>Trackers</h3>
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="card p-3 plan-card">
+          <h5>Weight Tracker</h5>
+          <form id="weightForm" class="row g-2">
+            <div class="col-6"><input required type="number" step="0.1" class="form-control" id="weightInput" placeholder="Weight (kg)"></div>
+            <div class="col-4"><input type="date" class="form-control" id="weightDate"></div>
+            <div class="col-2"><button class="btn btn-success w-100" type="submit">Add</button></div>
           </form>
+          <ul class="list-group mt-3" id="weightList"></ul>
         </div>
-
       </div>
-    </div>
-  </div>
 
-  <!-- LOG MODAL -->
-  <div class="modal fade" id="logModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content brown-modal p-3">
-        <div class="modal-header border-0">
-          <h5 class="modal-title text-light">Workout Log</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body">
-          <div class="d-flex mb-3">
-            <input id="mSearchInput" class="form-control me-2" placeholder="Search activity or date">
-            <button id="mClearAll" class="btn btn-sm btn-danger">Clear All</button>
-            <button id="mExport" class="btn btn-sm btn-outline-light ms-2">Export CSV</button>
-          </div>
-
-          <div id="mLogList" class="list-group"></div>
-        </div>
-
-        <div class="modal-footer border-0">
-          <button class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+      <div class="col-md-6">
+        <div class="card p-3 plan-card">
+          <h5>Workout Log</h5>
+          <form id="workoutForm" class="row g-2">
+            <div class="col-6"><input required type="text" class="form-control" id="workoutType" placeholder="Workout"></div>
+            <div class="col-4"><input required type="number" min="1" class="form-control" id="workoutMins" placeholder="Minutes"></div>
+            <div class="col-2"><button class="btn btn-success w-100" type="submit">Log</button></div>
+          </form>
+          <ul class="list-group mt-3" id="workoutList"></ul>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- STATS MODAL -->
-  <div class="modal fade" id="statsModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-      <div class="modal-content brown-modal p-3">
-        <div class="modal-header border-0">
-          <h5 class="modal-title text-light">Statistics</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body">
-          <div class="row g-3">
-            <div class="col-md-4">
-              <div class="card p-3 mb-3">
-                <h6>Total Sessions</h6>
-                <h2 id="mTotalSessions">0</h2>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card p-3 mb-3">
-                <h6>Total Calories Burned</h6>
-                <h2 id="mTotalCalories">0</h2>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card p-3 mb-3">
-                <h6>BMI Calculator</h6>
-                <div class="d-flex gap-2">
-                  <input id="mWeight" type="number" placeholder="kg" class="form-control">
-                  <input id="mHeight" type="number" placeholder="cm" class="form-control">
-                </div>
-                <button id="mCalcBMI" class="btn btn-sm btn-outline-primary mt-2">Calculate BMI</button>
-                <div id="mBmiResult" class="mt-2 small text-muted"></div>
-              </div>
+  <section id="progress" class="mb-5">
+    <h3>Progress Summary</h3>
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="muted-bg">
+          <h6>Latest Weight</h6>
+          <div id="latestWeight">No entries yet</div>
+          <div class="mt-3">
+            <h6>Weight Trend</h6>
+            <div class="progress" style="height:18px;">
+              <div id="weightProgress" class="progress-bar" style="width:0%">0%</div>
             </div>
           </div>
-
-          <div class="card p-3 mt-3">
-            <h6>Calories Burned Over Time</h6>
-            <canvas id="mCalChart" height="100"></canvas>
-          </div>
         </div>
-
-        <div class="modal-footer border-0">
-          <button class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+      </div>
+      <div class="col-md-6">
+        <div class="muted-bg">
+          <h6>Workout Summary (Last 7 days)</h6>
+          <div id="workoutSummary">No workouts logged</div>
         </div>
       </div>
     </div>
+  </section>
+
+  <footer class="py-4 text-center small-muted">© <span id="year"></span> FitTrack Demo</footer>
+</div>
+
+<!-- OFFCANVAS CART -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartCanvas">
+  <div class="offcanvas-header">
+    <h5>My Plans</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
+  <div class="offcanvas-body">
+    <div id="cartItems"></div>
+    <div class="mt-3 d-flex justify-content-between"><strong>Total:</strong><div id="cartTotal">₹0</div></div>
+    <button id="placeOrderBtn" class="btn btn-success w-100 mt-3">Subscribe</button>
+    <hr>
+    <h6>Past Orders</h6>
+    <ul class="list-group" id="ordersList"></ul>
+  </div>
+</div>
 
-  <!-- FOOTER -->
-  <footer class="mt-5 py-3 text-center" style="background:var(--primary); color:var(--lightText)">
-    <div class="container small">
-      FitTrack — Brown-Modal Version • Data saved in browser localStorage
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="authModal" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title" id="authTitle">Login</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <form id="authForm">
+          <div class="mb-2" id="nameRow" style="display:none;"><input id="nameInput" class="form-control" placeholder="Full name"></div>
+          <div class="mb-2"><input id="emailInput" type="email" class="form-control" placeholder="Email" required></div>
+          <div class="mb-2"><input id="passInput" type="password" class="form-control" placeholder="Password" required></div>
+          <div class="d-flex justify-content-between"><div><input type="checkbox" id="toggleSignup"> Signup</div><button class="btn btn-success" id="authSubmit">Go</button></div>
+        </form>
+      </div>
     </div>
-  </footer>
+  </div>
+</div>
 
-  <!-- Bootstrap JS bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- App JS -->
-  <script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
