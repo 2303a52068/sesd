@@ -3,13 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FitTrack — Personal Fitness & Progress Tracker</title>
+  <title>FitTrack — Fitness Tracker</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
   <div class="container">
     <a class="navbar-brand" href="#">FitTrack</a>
@@ -25,37 +24,24 @@
         <li class="nav-item"><a class="nav-link" href="#progress">Progress</a></li>
       </ul>
 
-      <div class="d-flex align-items-center">
+      <div class="d-flex">
         <button class="btn btn-outline-success me-2" id="btnOpenLogin">Login / Signup</button>
-        <button class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#cartCanvas"><i class="fa fa-dumbbell me-2"></i>My Plans <span class="badge bg-light text-dark ms-2" id="cartCount">0</span></button>
+        <button class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#cartCanvas">My Plans <span class="badge bg-light text-dark ms-1" id="cartCount">0</span></button>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- MAIN CONTENT -->
 <div class="container my-4">
   <section id="home" class="hero mb-4">
-    <div class="row align-items-center">
-      <div class="col-md-7">
-        <h1 class="display-6">FitTrack — Track workouts, nutrition & progress</h1>
-        <p class="lead">Personalized plans, weight & workout trackers, and progress charts — all stored locally for this demo.</p>
-        <div class="d-flex gap-2">
-          <a class="btn btn-success btn-lg" href="#plans">Explore Plans</a>
-          <a class="btn btn-outline-dark btn-lg" href="#trackers">Start Tracking</a>
-        </div>
-      </div>
-      <div class="col-md-5 text-center d-none d-md-block">
-        <img src="https://images.unsplash.com/photo-1554284126-aa88f22d8c3b" class="img-fluid rounded-3 shadow-sm">
-      </div>
-    </div>
+    <h1 class="display-6">Track Your Fitness Easily</h1>
+    <p class="lead">Workout logs, weight tracking, diet plans, all in one place.</p>
+    <a href="#plans" class="btn btn-success">Explore Plans</a>
+    <a href="#trackers" class="btn btn-dark">Start Tracking</a>
   </section>
 
   <section id="plans" class="mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3>Subscription Plans</h3>
-      <small class="small-muted">Choose a plan and add to cart</small>
-    </div>
+    <h3>Subscription Plans</h3>
     <div class="row g-3" id="plansList"></div>
   </section>
 
@@ -63,26 +49,26 @@
     <h3>Trackers</h3>
     <div class="row mt-3">
       <div class="col-md-6">
-        <div class="card p-3 plan-card">
+        <div class="card p-3">
           <h5>Weight Tracker</h5>
           <form id="weightForm" class="row g-2">
-            <div class="col-6"><input required type="number" step="0.1" class="form-control" id="weightInput" placeholder="Weight (kg)"></div>
-            <div class="col-4"><input type="date" class="form-control" id="weightDate"></div>
-            <div class="col-2"><button class="btn btn-success w-100" type="submit">Add</button></div>
+            <div class="col-6"><input type="number" id="weightInput" class="form-control" placeholder="Weight (kg)" required></div>
+            <div class="col-6"><input type="date" id="weightDate" class="form-control"></div>
+            <button class="btn btn-success mt-2" type="submit">Add</button>
           </form>
-          <ul class="list-group mt-3" id="weightList"></ul>
+          <ul id="weightList" class="list-group mt-3"></ul>
         </div>
       </div>
 
       <div class="col-md-6">
-        <div class="card p-3 plan-card">
+        <div class="card p-3">
           <h5>Workout Log</h5>
           <form id="workoutForm" class="row g-2">
-            <div class="col-6"><input required type="text" class="form-control" id="workoutType" placeholder="Workout"></div>
-            <div class="col-4"><input required type="number" min="1" class="form-control" id="workoutMins" placeholder="Minutes"></div>
-            <div class="col-2"><button class="btn btn-success w-100" type="submit">Log</button></div>
+            <div class="col-6"><input type="text" id="workoutType" class="form-control" placeholder="Workout" required></div>
+            <div class="col-6"><input type="number" id="workoutMins" class="form-control" placeholder="Minutes" required></div>
+            <button class="btn btn-success mt-2" type="submit">Log</button>
           </form>
-          <ul class="list-group mt-3" id="workoutList"></ul>
+          <ul id="workoutList" class="list-group mt-3"></ul>
         </div>
       </div>
     </div>
@@ -91,59 +77,60 @@
   <section id="progress" class="mb-5">
     <h3>Progress Summary</h3>
     <div class="row mt-3">
+
       <div class="col-md-6">
-        <div class="muted-bg">
+        <div class="card p-3">
           <h6>Latest Weight</h6>
           <div id="latestWeight">No entries yet</div>
           <div class="mt-3">
             <h6>Weight Trend</h6>
-            <div class="progress" style="height:18px;">
+            <div class="progress">
               <div id="weightProgress" class="progress-bar" style="width:0%">0%</div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="col-md-6">
-        <div class="muted-bg">
-          <h6>Workout Summary (Last 7 days)</h6>
-          <div id="workoutSummary">No workouts logged</div>
+        <div class="card p-3">
+          <h6>Workout Summary (Last 7 Days)</h6>
+          <div id="workoutSummary">No workouts yet</div>
         </div>
       </div>
+
     </div>
   </section>
-
-  <footer class="py-4 text-center small-muted">© <span id="year"></span> FitTrack Demo</footer>
 </div>
 
-<!-- OFFCANVAS CART -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartCanvas">
   <div class="offcanvas-header">
     <h5>My Plans</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
   <div class="offcanvas-body">
     <div id="cartItems"></div>
-    <div class="mt-3 d-flex justify-content-between"><strong>Total:</strong><div id="cartTotal">₹0</div></div>
-    <button id="placeOrderBtn" class="btn btn-success w-100 mt-3">Subscribe</button>
+    <hr>
+    <div class="d-flex justify-content-between"><strong>Total:</strong><span id="cartTotal">₹0</span></div>
+    <button class="btn btn-success w-100 mt-3" id="placeOrderBtn">Place Order</button>
     <hr>
     <h6>Past Orders</h6>
-    <ul class="list-group" id="ordersList"></ul>
+    <ul id="ordersList" class="list-group"></ul>
   </div>
 </div>
 
-<!-- LOGIN MODAL -->
 <div class="modal fade" id="authModal" tabindex="-1">
   <div class="modal-dialog modal-sm modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title" id="authTitle">Login</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
-      <div class="modal-body">
-        <form id="authForm">
-          <div class="mb-2" id="nameRow" style="display:none;"><input id="nameInput" class="form-control" placeholder="Full name"></div>
-          <div class="mb-2"><input id="emailInput" type="email" class="form-control" placeholder="Email" required></div>
-          <div class="mb-2"><input id="passInput" type="password" class="form-control" placeholder="Password" required></div>
-          <div class="d-flex justify-content-between"><div><input type="checkbox" id="toggleSignup"> Signup</div><button class="btn btn-success" id="authSubmit">Go</button></div>
-        </form>
-      </div>
+    <div class="modal-content p-2">
+      <h5 class="text-center" id="authTitle">Login</h5>
+      <form id="authForm">
+        <div id="nameRow" style="display:none"><input id="nameInput" class="form-control mb-2" placeholder="Full Name"></div>
+        <input id="emailInput" type="email" class="form-control mb-2" placeholder="Email" required>
+        <input id="passInput" type="password" class="form-control mb-2" placeholder="Password" required>
+        <div class="d-flex justify-content-between">
+          <label><input type="checkbox" id="toggleSignup"> Signup</label>
+          <button class="btn btn-success" type="submit">Go</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
