@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>FitTrack — Smart Fitness Tracker (Brown Modals)</title>
 
-  <!-- Bootstrap -->
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Chart.js -->
+  <!-- Chart.js (must be before script.js) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <!-- Custom CSS -->
@@ -21,20 +21,20 @@
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">FitTrack</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navMain">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <button class="btn btn-sm btn-outline-light me-2" onclick="openAddModal()">Add Workout</button>
+          <li class="nav-item me-2">
+            <button class="btn btn-sm btn-outline-light" type="button" onclick="openAddModal()">Add Workout</button>
+          </li>
+          <li class="nav-item me-2">
+            <button class="btn btn-sm btn-outline-light" type="button" onclick="openLogModal()">Workout Log</button>
           </li>
           <li class="nav-item">
-            <button class="btn btn-sm btn-outline-light me-2" onclick="openLogModal()">Workout Log</button>
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-sm btn-outline-light" onclick="openStatsModal()">Stats</button>
+            <button class="btn btn-sm btn-outline-light" type="button" onclick="openStatsModal()">Stats</button>
           </li>
         </ul>
       </div>
@@ -46,18 +46,18 @@
     <div class="container">
       <h1 class="display-5 fw-bold">FitTrack</h1>
       <p class="lead">Track workouts, calories, and BMI — quick and simple.</p>
-      <div class="small text-muted">Use the buttons in the navbar to open each section.</div>
+      <div class="small text-muted">Use the navbar buttons to open each modal.</div>
     </div>
   </header>
 
-  <!-- (Main content left minimal since modals are used) -->
+  <!-- MAIN minimal content -->
   <main class="container my-4">
     <div class="text-center">
-      <p class="mb-0">Modals are used for core actions (Add, Log, Stats). Click the navbar buttons to open them.</p>
+      <p class="mb-0">This version uses brown-themed modals for Add, Log and Stats sections.</p>
     </div>
   </main>
 
-  <!-- ADD WORKOUT MODAL (Brown theme) -->
+  <!-- ADD WORKOUT MODAL -->
   <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content brown-modal p-3">
@@ -190,7 +190,7 @@
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap JS bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- App JS -->
