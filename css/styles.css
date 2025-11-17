@@ -1,49 +1,23 @@
-:root{
-  --accent:#2E8B57;
-  --muted:#f5f7f6;
-}
-
-/* Page */
-html { scroll-behavior: smooth; }
 body {
-  background: #d2b48c;   /* brown as requested */
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: #222;
-  margin: 0;
-  padding: 0;
+  background: #d2b48c;
+  font-family: "Inter", sans-serif;
 }
 
-/* Navbar */
-.navbar-brand { font-weight:700; color: var(--accent) !important; }
-
-/* Hero */
 .hero {
   background: rgba(255,255,255,0.4);
-  border-radius: 12px;
   padding: 1.8rem;
-  box-shadow: 0 6px 18px rgba(30,30,30,0.06);
+  border-radius: 12px;
 }
 
-/* Cards */
-.plan-card, .card { border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); background: #fff; }
-
-/* Small muted text */
-.small-muted { color:#6c757d; font-size: .95rem; }
-
-/* Progress */
-.progress { height: 18px; }
-.progress-bar { background: var(--accent); }
-
-/* Muted background boxes */
-.muted-bg { background: var(--muted); padding: 1rem; border-radius: 8px; }
-
-/* Lists */
-.list-group-item { display:flex; justify-content:space-between; align-items:center; }
-
-/* Responsive tweaks */
-@media (max-width:576px){
-  .hero { padding: 1rem; text-align: center; }
+.card {
+  border-radius: 12px;
+  background: white;
 }
 
-/* Footer small text */
-.footer { color: #666; font-size: .9rem; }
+.progress {
+  height: 18px;
+}
+
+.progress-bar {
+  background: #2E8B57;
+}
