@@ -3,8 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FitTrack — Fitness Tracker</title>
+  <title>FitTrack — Fitness Tracker (Frontend Only)</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Your styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -26,116 +30,159 @@
 
       <div class="d-flex">
         <button class="btn btn-outline-success me-2" id="btnOpenLogin">Login / Signup</button>
-        <button class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#cartCanvas">My Plans <span class="badge bg-light text-dark ms-1" id="cartCount">0</span></button>
+        <button class="btn btn-success" id="btnOpenCart" data-bs-toggle="offcanvas" data-bs-target="#cartCanvas">
+          My Plans <span class="badge bg-light text-dark ms-1" id="cartCount">0</span>
+        </button>
       </div>
     </div>
   </div>
 </nav>
 
-<div class="container my-4">
+<main class="container my-4">
+
+  <!-- Hero -->
   <section id="home" class="hero mb-4">
-    <h1 class="display-6">Track Your Fitness Easily</h1>
-    <p class="lead">Workout logs, weight tracking, diet plans, all in one place.</p>
-    <a href="#plans" class="btn btn-success">Explore Plans</a>
-    <a href="#trackers" class="btn btn-dark">Start Tracking</a>
+    <div class="row align-items-center">
+      <div class="col-md-7">
+        <h1 class="display-6">FitTrack — Track workouts, nutrition & progress</h1>
+        <p class="lead">Personalized plans, weight & workout trackers, and progress charts — stored only in your browser for demo.</p>
+        <div class="d-flex gap-2">
+          <a class="btn btn-success btn-lg" href="#plans">Explore Plans</a>
+          <a class="btn btn-dark btn-lg" href="#trackers">Start Tracking</a>
+        </div>
+        <div class="mt-3 small-muted">Demo: data saved locally in this browser (localStorage).</div>
+      </div>
+      <div class="col-md-5 text-center d-none d-md-block">
+        <img src="https://images.unsplash.com/photo-1554284126-aa88f22d8c3b?q=80&w=800&auto=format&fit=crop&crop=faces" alt="fitness" class="img-fluid rounded-3 shadow-sm">
+      </div>
+    </div>
   </section>
 
+  <!-- Plans -->
   <section id="plans" class="mb-5">
-    <h3>Subscription Plans</h3>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3>Subscription Plans</h3>
+      <small class="small-muted">Choose a plan and add to My Plans</small>
+    </div>
     <div class="row g-3" id="plansList"></div>
   </section>
 
+  <!-- Trackers -->
   <section id="trackers" class="mb-5">
     <h3>Trackers</h3>
     <div class="row mt-3">
       <div class="col-md-6">
-        <div class="card p-3">
+        <div class="card p-3 plan-card">
           <h5>Weight Tracker</h5>
+          <p class="small-muted">Log weight entries and view progress.</p>
           <form id="weightForm" class="row g-2">
-            <div class="col-6"><input type="number" id="weightInput" class="form-control" placeholder="Weight (kg)" required></div>
-            <div class="col-6"><input type="date" id="weightDate" class="form-control"></div>
-            <button class="btn btn-success mt-2" type="submit">Add</button>
+            <div class="col-6"><input required type="number" step="0.1" min="0" class="form-control" id="weightInput" placeholder="Weight (kg)"></div>
+            <div class="col-4"><input type="date" class="form-control" id="weightDate" /></div>
+            <div class="col-2"><button class="btn btn-success w-100" type="submit">Add</button></div>
           </form>
-          <ul id="weightList" class="list-group mt-3"></ul>
+          <ul class="list-group mt-3" id="weightList"></ul>
         </div>
       </div>
 
       <div class="col-md-6">
-        <div class="card p-3">
+        <div class="card p-3 plan-card">
           <h5>Workout Log</h5>
+          <p class="small-muted">Record workouts with type and duration.</p>
           <form id="workoutForm" class="row g-2">
-            <div class="col-6"><input type="text" id="workoutType" class="form-control" placeholder="Workout" required></div>
-            <div class="col-6"><input type="number" id="workoutMins" class="form-control" placeholder="Minutes" required></div>
-            <button class="btn btn-success mt-2" type="submit">Log</button>
+            <div class="col-6"><input required type="text" class="form-control" id="workoutType" placeholder="Workout (e.g., Run, Yoga)"></div>
+            <div class="col-4"><input required type="number" min="1" class="form-control" id="workoutMins" placeholder="Minutes"></div>
+            <div class="col-2"><button class="btn btn-success w-100" type="submit">Log</button></div>
           </form>
-          <ul id="workoutList" class="list-group mt-3"></ul>
+          <ul class="list-group mt-3" id="workoutList"></ul>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Progress -->
   <section id="progress" class="mb-5">
     <h3>Progress Summary</h3>
     <div class="row mt-3">
-
       <div class="col-md-6">
-        <div class="card p-3">
+        <div class="muted-bg p-3">
           <h6>Latest Weight</h6>
           <div id="latestWeight">No entries yet</div>
           <div class="mt-3">
             <h6>Weight Trend</h6>
-            <div class="progress">
-              <div id="weightProgress" class="progress-bar" style="width:0%">0%</div>
+            <div class="progress" style="height:18px;">
+              <div id="weightProgress" class="progress-bar" role="progressbar" style="width:0%">0%</div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
-        <div class="card p-3">
-          <h6>Workout Summary (Last 7 Days)</h6>
-          <div id="workoutSummary">No workouts yet</div>
+        <div class="muted-bg p-3">
+          <h6>Workout Summary (Last 7 days)</h6>
+          <div id="workoutSummary">No workouts logged</div>
         </div>
       </div>
-
     </div>
   </section>
-</div>
 
+  <footer class="py-4 d-flex justify-content-between align-items-center">
+    <div><strong>FitTrack</strong><div class="footer small-muted">Demo — data saved locally only.</div></div>
+    <div class="text-end small-muted">© <span id="year"></span></div>
+  </footer>
+</main>
+
+<!-- Offcanvas: Cart -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartCanvas">
   <div class="offcanvas-header">
-    <h5>My Plans</h5>
-    <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+    <h5 class="offcanvas-title">My Plans</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
   <div class="offcanvas-body">
     <div id="cartItems"></div>
-    <hr>
-    <div class="d-flex justify-content-between"><strong>Total:</strong><span id="cartTotal">₹0</span></div>
-    <button class="btn btn-success w-100 mt-3" id="placeOrderBtn">Place Order</button>
+    <div class="mt-3 d-flex justify-content-between align-items-center"><strong>Total:</strong> <div id="cartTotal">₹0</div></div>
+    <div class="mt-3"><button id="placeOrderBtn" class="btn btn-success w-100">Subscribe / Place Order</button></div>
     <hr>
     <h6>Past Orders</h6>
     <ul id="ordersList" class="list-group"></ul>
   </div>
 </div>
 
+<!-- Login / Signup Modal -->
 <div class="modal fade" id="authModal" tabindex="-1">
   <div class="modal-dialog modal-sm modal-dialog-centered">
-    <div class="modal-content p-2">
-      <h5 class="text-center" id="authTitle">Login</h5>
-      <form id="authForm">
-        <div id="nameRow" style="display:none"><input id="nameInput" class="form-control mb-2" placeholder="Full Name"></div>
-        <input id="emailInput" type="email" class="form-control mb-2" placeholder="Email" required>
-        <input id="passInput" type="password" class="form-control mb-2" placeholder="Password" required>
-        <div class="d-flex justify-content-between">
-          <label><input type="checkbox" id="toggleSignup"> Signup</label>
-          <button class="btn btn-success" type="submit">Go</button>
-        </div>
-      </form>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="authTitle">Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="authForm">
+          <div class="mb-2" id="nameRow" style="display:none;">
+            <input id="nameInput" class="form-control" placeholder="Full name">
+          </div>
+          <div class="mb-2">
+            <input id="emailInput" type="email" class="form-control" placeholder="Email" required>
+          </div>
+          <div class="mb-2">
+            <input id="passInput" type="password" class="form-control" placeholder="Password" required>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <input type="checkbox" id="toggleSignup"> <label for="toggleSignup"> Sign up</label>
+            </div>
+            <button class="btn btn-success" type="submit" id="authSubmit">Go</button>
+          </div>
+        </form>
+        <div class="mt-2 small-muted">Tip: This demo stores user data locally. Use a real backend for production.</div>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- Bootstrap JS bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Your JS -->
 <script src="script.js"></script>
 </body>
 </html>
