@@ -1,0 +1,98 @@
+:root{
+  --bg:#d2b48c;          /* Light brown background */
+  --primary:#5a3e2b;     /* Dark brown primary */
+  --card:#f3e5c7;        /* Soft beige card color */
+  --muted:#6b5c4a;       /* Muted text brown */
+  --lightText:#f6e8d8;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:#3b2a1c;
+  margin:0;
+}
+
+/* NAVBAR */
+.navbar{
+  background:var(--primary) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+.navbar-brand{
+  font-weight:800;
+  color:var(--lightText) !important;
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(90deg, rgba(90,62,43,0.12), rgba(90,62,43,0.06));
+  color:#3b2a1c;
+  padding:48px 0;
+}
+
+/* Modal / Brown theme */
+.brown-modal{
+  background: linear-gradient(180deg, rgba(90,62,43,0.95), rgba(75,50,36,0.94));
+  color: var(--lightText);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+}
+
+/* Form controls inside brown modal */
+.brown-modal .form-control,
+.brown-modal .form-select{
+  background: rgba(255,255,255,0.06);
+  color: var(--lightText);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.brown-modal .form-control::placeholder{ color: rgba(255,255,255,0.6); }
+.brown-modal .form-label{ color: rgba(255,255,255,0.9); }
+
+/* Card look for stats inside modal (use lighter card) */
+.card{
+  border-radius:10px;
+  background:var(--card);
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+  border:1px solid rgba(0,0,0,0.06);
+  color: #3b2a1c;
+}
+
+/* list group */
+.list-group-item{
+  background:var(--card);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border:1px solid rgba(0,0,0,0.06);
+}
+
+/* Buttons */
+.btn-primary{
+  background:#7a4f3a;
+  border:none;
+  color:var(--lightText);
+}
+.btn-primary:hover{ background:#6a3f2a; }
+
+.btn-outline-light{
+  color:var(--lightText);
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* footer */
+footer{
+  margin-top:30px;
+}
+
+/* chart canvas style */
+canvas{ background: rgba(255,255,255,0.92); border-radius:8px; }
+
+/* responsive */
+@media (max-width:767px){
+  .modal-xl{ max-width: 92%;}
+  .d-flex.gap-2{flex-direction:column;}
+}
